@@ -25,10 +25,20 @@ go build
 ```
 
 ## memo
-go run *.go = ビルドと実行
-go build -o ### *.go = ビルド
-go mod init "**/~" = go modules作成
+```go
+// ビルドと実行
+go run *.go
+```
 
+```go
+// ビルド
+go build -o ### *.go
+```
+
+```go
+// go modules作成
+go mod init "**/~"
+```
 ## わからないこと
 - 出力ファイル名をデフォルトは、mainが書かれているファイル名になる？
 - 画像の変換方法
