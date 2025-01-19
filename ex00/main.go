@@ -12,51 +12,67 @@ import  (
 		"image/png"    
 )
 
-// execute printf   
-func main() {
-	const bExtension = "jpg"
-	const aExtension = "png"
-	if (len(os.Args) != 2) {
-		fmt.Println("error: invalid argument")
-		return
-	}
-	var imagePath = os.Args[1]
-	var files []string
-	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
-		fmt.Printf("error: %s: no such file or directory\n", imagePath)
-		return
-	}
-	err := filepath.Walk(imagePath, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			fmt.Printf("Error accessing path %q: %v\n", path, err)
-			return nil
+func execConvert(files []string, bExtension string, aExtension string) error {
+	for _, filePath := range files {
+		file, err := os.Open(filePath)
+		if (err != nil) {
+			return fmt.Errorf("%v", err)
 		}
-		if info.IsDir() {
-			fmt.Println("Directory:", path)
-		} else {
+		img, _, err := image.Decode(file)
+		if (err != nil) {
+			return fmt.Errorf("%s is not a valid file", filePath)
+			
+		}
+		if (filepath.Ext(filePath) == bExtension) {
+			outputPath := filePath[:len(filePath)-len(filepath.Ext(filePath))] + aExtension
+			outFile, err := os.Create(outputPath)		
+			if (err != nil) {
+				return fmt.Errorf("%v", err)
+				 
+			}
+			err = png.Encode(outFile, img)
+			if (err != nil) {
+				return fmt.Errorf("%v", err)
+			}
+		}
+	}
+	return nil
+}
+
+func convertImg(imagePath string, bExtension string, aExtension string) error {
+	var files []string
+
+	err := filepath.Walk(imagePath, func(path string, info os.FileInfo, err error) error {
+		if (err != nil) {
+			return fmt.Errorf("%v", err)
+		}
+		if (!info.IsDir()) {
 			files = append(files, path)
 		}
 		return nil
 	})
 	if err != nil {
-		fmt.Printf("Error walking the path %v\n", err)
+		return fmt.Errorf("walking the path %v", err)
+	}
+	return execConvert(files, bExtension, aExtension)
+}
+
+// execute Error   
+func main() {
+	const bExtension = ".jpg"
+	const aExtension = ".png"
+	if (len(os.Args) != 2) {
+		fmt.Printf("error: invalid argument")
 		return
 	}
-	for _, filePath := range files {
-		file, err := os.Open(filePath)
-		if (err != nil) {
-			fmt.Printf("error: %v \n", err)
-			return 
-		}
-		img, _, err := image.Decode(file)
-		if (err != nil) {
-			fmt.Printf("error: %s is not a valid file\n", filePath)
-			return 
-		}
-		if (filepath.Ext(filePath) == ".jpg") {
-			outputPath := filePath[:len(filePath)-len(filepath.Ext(filePath))] + ".png"
-			outFile, _ := os.Create(outputPath)
-			png.Encode(outFile, img)
-		}
+	var imagePath = os.Args[1]
+	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
+		fmt.Printf("error: %s: no such file or directory\n", imagePath)
+		return
 	}
+	err := convertImg(imagePath, aExtension, bExtension)
+	if err != nil {
+		fmt.Printf("error: %s\n", err.Error())
+	}
+	return 
 }
