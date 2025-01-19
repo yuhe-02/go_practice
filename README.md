@@ -39,6 +39,8 @@ go build -o ### *.go
 // go modules作成
 go mod init "**/~"
 ```
+
+- style guideline https://google.github.io/styleguide/go/guide
 ## わからないこと
 - 出力ファイル名をデフォルトは、mainが書かれているファイル名になる？
 - 画像の変換方法

@@ -7,18 +7,26 @@ import  (
 		"fmt"
 		"os"
 		"path/filepath"
+		"image"
+		_ "image/jpeg" 
+		"image/png"    
 )
 
-// execute printf
+// execute printf   
 func main() {
-	const b_extension = "jpg"
-	const a_extension = "png"
-	if (len(os.Args) <= 1) {
+	const bExtension = "jpg"
+	const aExtension = "png"
+	if (len(os.Args) != 2) {
 		fmt.Println("error: invalid argument")
 		return
 	}
-	var image_path = os.Args[1]
-	err := filepath.Walk(image_path, func(path string, info os.FileInfo, err error) error {
+	var imagePath = os.Args[1]
+	var files []string
+	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
+		fmt.Printf("error: %s: no such file or directory\n", imagePath)
+		return
+	}
+	err := filepath.Walk(imagePath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			fmt.Printf("Error accessing path %q: %v\n", path, err)
 			return nil
@@ -26,7 +34,7 @@ func main() {
 		if info.IsDir() {
 			fmt.Println("Directory:", path)
 		} else {
-			fmt.Println("File:", path)
+			files = append(files, path)
 		}
 		return nil
 	})
@@ -34,5 +42,21 @@ func main() {
 		fmt.Printf("Error walking the path %v\n", err)
 		return
 	}
-	fmt.Println("Directory walk complete.")
+	for _, filePath := range files {
+		file, err := os.Open(filePath)
+		if (err != nil) {
+			fmt.Printf("error: %v \n", err)
+			return 
+		}
+		img, _, err := image.Decode(file)
+		if (err != nil) {
+			fmt.Printf("error: %s is not a valid file\n", filePath)
+			return 
+		}
+		if (filepath.Ext(filePath) == ".jpg") {
+			outputPath := filePath[:len(filePath)-len(filepath.Ext(filePath))] + ".png"
+			outFile, _ := os.Create(outputPath)
+			png.Encode(outFile, img)
+		}
+	}
 }

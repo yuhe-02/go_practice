@@ -1,3 +1,3 @@
-module github.com/yuhe-02/image_converter/ex00
+module github.com/yuhe-02/image_converter/convert
 
-go 1.22.2
+go 1.18
