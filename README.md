@@ -1,53 +1,35 @@
-# Image Converter
+# Go 基本プロジェクト
 
-This package provides a command-line tool to convert JPG images to PNG format. 
+このリポジトリでは、Goプログラミング言語の基本的な概念と実践的な使用法を学ぶことを目的としたプロジェクトです。Goの特徴的な構文やライブラリを使って、基本的な動作やプログラミングの原則を習得します。
 
-## desciption
+## dojo_00 - Goの基本動作の振る舞い
 
+`dojo_00` では、Goの基本的な動作について学びました。ここでは以下のキーワードを重点的に学習しました。
 
-## Features
+### 学んだこと
 
-- Convert JPG images to PNG format, including files in subdirectories.
-- Skip invalid files and report errors.
-- Easy-to-use CLI interface.
+- **ユーザー定義**  
+  Goでは構造体（`struct`）やインターフェースを使って、独自のデータ型を定義できます。これにより、コードをより柔軟で再利用可能にできます。
 
-## Installation
+- **パッケージ**  
+  Goのパッケージシステムを使って、コードのモジュール化を実現しました。パッケージによってコードを整理し、他のプロジェクトと簡単に共有できるようにしました。
 
-1. Ensure you have Go installed.
-2. Clone this repository.
-3. Run `go mod tidy` to install dependencies.
+- **エンコードとデコード**  
+  Goでは、`encoding` パッケージを使用して、画像やJSON、XMLなどのデータのエンコードとデコードを簡単に行うことができます。これにより、外部データとやり取りする際のデータの変換方法を理解しました。
 
-## Usage
+- **命名規則**  
+  Goでは、変数や関数、構造体などの命名規則が重要です。特に、パッケージ内と外部に公開する際の命名規則に注意しました。大文字で始めるとエクスポートされ、小文字で始めるとパッケージ内でのみ使用できるというルールを学びました。
+
+- **エラーハンドリング**  
+  Goでは、エラーハンドリングに `error` 型を使います。`if err != nil` のパターンを頻繁に使い、エラーを適切に処理する方法を学びました。これにより、コードの堅牢性が向上します。
+
+### プロジェクトの構成
 
 ```bash
-go build
-./convert <directory>
+├── ex00
+│   ├── main.go
+│   ├── converter/
+│   │   ├── converter.go
+│   ├── README.md
+├── go.mod
 ```
-
-## memo
-```go
-// ビルドと実行
-go run *.go
-```
-
-```go
-// ビルド
-go build -o ### *.go
-```
-
-```go
-// go modules作成
-go mod init "**/~"
-```
-
-
-- Closeの挙動 https://qiita.com/masafumi330/items/a8696c32bffbb6cc99e1
-- style guideline https://google.github.io/styleguide/go/guide
-## わからないこと
-- 出力ファイル名をデフォルトは、mainが書かれているファイル名になる？
-- 画像の変換方法
-- go modulesとは、どう書くのが普通
-- go doc？
-- 使っていいパッケージ（自作、標準、準標準）はどう判断？
-- ユーザー定義型？
-- goはOOPS的に書くのか、関数型的に書くのかわからん

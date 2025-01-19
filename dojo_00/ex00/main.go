@@ -1,18 +1,19 @@
 package main
+
 // TODO create godoc
 // TODO create user definition
 
-import  (
-		"fmt"
-		"os"
-		"convert/converter"
+import (
+	"convert/converter"
+	"fmt"
+	"os"
 )
 
-// execute Error   
+// execute Error
 func main() {
 	const bExtension = ".jpg"
 	const aExtension = ".png"
-	if (len(os.Args) != 2) {
+	if len(os.Args) != 2 {
 		fmt.Printf("error: invalid argument\n")
 		return
 	}
@@ -26,5 +27,5 @@ func main() {
 	if err != nil {
 		fmt.Printf("error: %s\n", err.Error())
 	}
-	return 
+	return
 }
