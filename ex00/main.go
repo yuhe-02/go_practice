@@ -21,7 +21,8 @@ func main() {
 		fmt.Printf("error: %s: no such file or directory\n", imagePath)
 		return
 	}
-	err := converter.ConvertImg(imagePath, bExtension, aExtension)
+	ic := &converter.ImageConverter{}
+	err := ic.ConvertImg(imagePath, bExtension, aExtension)
 	if err != nil {
 		fmt.Printf("error: %s\n", err.Error())
 	}

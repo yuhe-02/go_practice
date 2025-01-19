@@ -10,7 +10,11 @@ import (
 	_ "image/gif"
 )
 
-func ExecConvert(files []string, bExtension string, aExtension string) error {
+type ImageConverter struct {
+	
+}
+
+func (ic *ImageConverter) execConvert(files []string, bExtension string, aExtension string) error {
 	for _, filePath := range files {
 		file, err := os.Open(filePath)
 		if (err != nil) {
@@ -27,7 +31,7 @@ func ExecConvert(files []string, bExtension string, aExtension string) error {
 			if (err != nil) {
 				return fmt.Errorf("%v", err)
 			}
-			// defer outFile.Close()
+			defer outFile.Close()
 			err = png.Encode(outFile, img)
 			if (err != nil) {
 				return fmt.Errorf("%v", err)
@@ -37,7 +41,7 @@ func ExecConvert(files []string, bExtension string, aExtension string) error {
 	return nil
 }
 
-func ConvertImg(imagePath string, bExtension string, aExtension string) error {
+func (ic *ImageConverter) ConvertImg(imagePath string, bExtension string, aExtension string) error {
 	var files []string
 
 	err := filepath.Walk(imagePath, func(path string, info os.FileInfo, err error) error {
@@ -52,5 +56,5 @@ func ConvertImg(imagePath string, bExtension string, aExtension string) error {
 	if err != nil {
 		return fmt.Errorf("walking the path %v", err)
 	}
-	return ExecConvert(files, bExtension, aExtension)
+	return ic.execConvert(files, bExtension, aExtension)
 }
