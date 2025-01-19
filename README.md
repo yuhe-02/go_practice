@@ -40,6 +40,8 @@ go build -o ### *.go
 go mod init "**/~"
 ```
 
+
+- Closeの挙動 https://qiita.com/masafumi330/items/a8696c32bffbb6cc99e1
 - style guideline https://google.github.io/styleguide/go/guide
 ## わからないこと
 - 出力ファイル名をデフォルトは、mainが書かれているファイル名になる？
