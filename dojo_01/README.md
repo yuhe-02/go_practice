@@ -26,10 +26,8 @@ For detailed instructions on testing in Go, refer to the following resources:
 - [Go Testing Documentation](https://pkg.go.dev/testing)
 
 ## わからないこと
-- 出力ファイル名をデフォルトは、mainが書かれているファイル名になる？
-- 画像の変換方法
-- go modulesとは、どう書くのが普通
-- go doc？
-- 使っていいパッケージ（自作、標準、準標準）はどう判断？
-- ユーザー定義型？
-- goはOOPS的に書くのか、関数型的に書くのかわからん
+- テストの書き方
+- テストを並列処理で実行する
+- カバレッジ計測方法
+- テーブル駆動テスト（テストフレームワークについて）
+- テストヘルパーとは
