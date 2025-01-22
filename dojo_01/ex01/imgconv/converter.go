@@ -1,5 +1,5 @@
 // Package converter provides functionality to convert images from one format to another.
-package converter
+package imgconv
 
 // module imports
 import (
@@ -13,7 +13,7 @@ import (
 )
 
 // ImageConverter is a struct that holds methods for converting images.
-type ImageConverter struct {}
+type ImageConverter struct{}
 
 // execConvert is a private method that handles the actual image conversion process.
 // It takes a list of file paths and converts images of a given extension to the target extension.
